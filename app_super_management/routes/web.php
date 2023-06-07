@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ProvidersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,13 +19,20 @@ use Illuminate\Support\Facades\Route;
 
 /*Route::get($uri, $callback);*/
 
-Route::get('/', [MainController::class, 'main']);
+Route::get('/', [MainController::class, 'main'])->name('site.index');
+Route::get('/about', [AboutController::class, 'about'])->name('site.about');
+Route::get('/contact/{pais}/{regiao}', [ContactController::class, 'contact'] )->name('site.contact');
+Route::get('/login',[])->name('site.login');
 
-Route::get('/about', [AboutController::class, 'about']);
+Route::prefix('/app')->group(function (){
+    Route::get('/customers',[])->name('app.customers');
+    Route::get('/providers',[ProvidersController::class, 'index'])->name('app.providers');
+    Route::get('/products',[])->name('app.products');
+});
 
-Route::get('/contact', [ContactController::class, 'contact'] );
-
-
-Route::get('/contact/{name}', function(string $name){
-    echo 'Estamos aqui:'.$name;
+Route::get('/rota1',[])->name('site.rota1');
+Route::get('/rota2',[])->name('site.rota2');
+Route::redirect('URI', 'URI', 301);
+Route::fallback(function (){
+    echo 'A rota buscada não existe <a href="'.route('site.index').'"> Clique aqui</a>';
 });

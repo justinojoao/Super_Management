@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function contact(){
-        return view('site.contact');
+    public function contact(string $pais, string $regiao){
+        return view('site.contact', compact('pais', 'regiao'));//compact
     }
 }
