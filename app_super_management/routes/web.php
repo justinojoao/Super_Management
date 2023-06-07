@@ -23,3 +23,8 @@ Route::get('/', [MainController::class, 'main']);
 Route::get('/about', [AboutController::class, 'about']);
 
 Route::get('/contact', [ContactController::class, 'contact'] );
+
+
+Route::get('/contact/{name}', function(string $name){
+    echo 'Estamos aqui:'.$name;
+});
